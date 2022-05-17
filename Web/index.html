@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.3/web3.min.js"></script>
+	<title>Simple smart contract</title>
+</head>
+<body>
+	<span id='contractOutput'>Contract Loading....</span>
+
+	<script>
+		const contractABI = [
+    {
+      "inputs": [],
+      "name": "hello",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ]
+  	const contractAddress = '0xA66045AAF2F6B981548a25C358Fb462DDa1E260e'
+  	const web3 = new Web3('HTTP://127.0.0.1:7545')
+  	const helloWorld = new web3.eth.Contract(contractABI,contractAddress)
+
+  	document.addEventListener('DOMContentLoaded', ()=>{
+  		console.log(helloWorld.methods)
+  		helloWorld.methods.hello().call()
+  			.then( res =>{
+  				document.getElementById('contractOutput').innerHTML = res
+  			})
+  	})
+
+	</script>
+</body>
+</html>
